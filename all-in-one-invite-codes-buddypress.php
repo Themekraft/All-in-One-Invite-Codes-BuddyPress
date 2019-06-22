@@ -68,7 +68,6 @@ function all_in_one_invite_codes_profile_tab_tab_content() {
 }
 
 
-
 /**
  * Register Settings Options
  *
@@ -83,13 +82,12 @@ function all_in_one_invite_codes_buddypress_register_option() {
 add_action( 'admin_init', 'all_in_one_invite_codes_buddypress_register_option' );
 
 
-
-
 add_filter( 'all_in_one_invite_codes_admin_tabs', 'all_in_one_invite_codes_buddypress_admin_tabs', 2, 10 );
 
 function all_in_one_invite_codes_buddypress_admin_tabs( $tabs ) {
 
 	$tabs['buddypress'] = 'BuddyPress';
+
 	return $tabs;
 
 }
@@ -116,42 +114,42 @@ function all_in_one_invite_codes_buddypress_settings_page_tab( $tab ) {
                         <tbody>
                         <tr valign="top">
                             <th scope="row" valign="top">
-		                        <?php _e( 'Profile Integration', 'all-in-one-invite-codes' ); ?>
+								<?php _e( 'Profile Integration', 'all-in-one-invite-codes' ); ?>
                             </th>
                             <td>
-		                        <?php
-		                        $pages['enabled'] = 'Enable';
-		                        $pages['disable'] = 'Disable';
+								<?php
+								$pages['enabled'] = 'Enable';
+								$pages['disable'] = 'Disable';
 
-		                        if ( isset( $pages ) && is_array( $pages ) ) {
-			                        echo '<select name="all_in_one_invite_codes_buddypress[profile_tab]" id="all_in_one_invite_codes_buddypress">';
+								if ( isset( $pages ) && is_array( $pages ) ) {
+									echo '<select name="all_in_one_invite_codes_buddypress[profile_tab]" id="all_in_one_invite_codes_buddypress">';
 
-			                        foreach ( $pages as $page_id => $page_name ) {
-				                        echo '<option ' . selected( $all_in_one_invite_codes_buddypress['profile_tab'], $page_id ) . 'value="' . $page_id . '">' . $page_name . '</option>';
-			                        }
-			                        echo '</select>';
-		                        }
-		                        ?>
+									foreach ( $pages as $page_id => $page_name ) {
+										echo '<option ' . selected( $all_in_one_invite_codes_buddypress['profile_tab'], $page_id ) . 'value="' . $page_id . '">' . $page_name . '</option>';
+									}
+									echo '</select>';
+								}
+								?>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row" valign="top">
-		                        <?php _e( 'BuddyPress Registration', 'all-in-one-invite-codes' ); ?>
+								<?php _e( 'BuddyPress Registration', 'all-in-one-invite-codes' ); ?>
                             </th>
                             <td>
-		                        <?php
-		                        $pages['enabled'] = 'Enable';
-		                        $pages['disable'] = 'Disable';
+								<?php
+								$pages['enabled'] = 'Enable';
+								$pages['disable'] = 'Disable';
 
-		                        if ( isset( $pages ) && is_array( $pages ) ) {
-			                        echo '<select name="all_in_one_invite_codes_buddypress[profile_tab]" id="all_in_one_invite_codes_buddypress">';
+								if ( isset( $pages ) && is_array( $pages ) ) {
+									echo '<select name="all_in_one_invite_codes_buddypress[profile_tab]" id="all_in_one_invite_codes_buddypress">';
 
-			                        foreach ( $pages as $page_id => $page_name ) {
-				                        echo '<option ' . selected( $all_in_one_invite_codes_buddypress['profile_tab'], $page_id ) . 'value="' . $page_id . '">' . $page_name . '</option>';
-			                        }
-			                        echo '</select>';
-		                        }
-		                        ?>
+									foreach ( $pages as $page_id => $page_name ) {
+										echo '<option ' . selected( $all_in_one_invite_codes_buddypress['profile_tab'], $page_id ) . 'value="' . $page_id . '">' . $page_name . '</option>';
+									}
+									echo '</select>';
+								}
+								?>
                             </td>
                         </tr>
                         </tbody>
@@ -168,8 +166,8 @@ function all_in_one_invite_codes_buddypress_settings_page_tab( $tab ) {
 
 }
 
-add_action('bp_signup_profile_fields', 'all_in_one_invite_codes_bp_after_profile_field_content');
-function all_in_one_invite_codes_bp_after_profile_field_content(){
+add_action( 'bp_signup_profile_fields', 'all_in_one_invite_codes_bp_after_profile_field_content' );
+function all_in_one_invite_codes_bp_after_profile_field_content() {
 
 	// Check if the invite code is coming from a link
 	$tk_invite_code = ( ! empty( $_GET['invite_code'] ) ) ? sanitize_key( trim( $_GET['invite_code'] ) ) : '';
@@ -177,37 +175,128 @@ function all_in_one_invite_codes_bp_after_profile_field_content(){
 	?>
     <p>
         <label for="signup_invite_code"><?php _e( 'Invitation Code', 'all-in-one-invite-code' ) ?></label>
-        <?php echo do_action('bp_signup_invite_code_errors') ?>
-            <input type="text" name="signup_invite_code" id="signup_invite_code" class="input" required="required"
-                   value="<?php echo esc_attr( $tk_invite_code ); ?>" size="25"/>
+		<?php echo do_action( 'bp_signup_invite_code_errors' ) ?>
+        <input type="text" name="signup_invite_code" id="signup_invite_code" class="input" required="required"
+               value="<?php echo esc_attr( $tk_invite_code ); ?>" size="25"/>
     </p>
 	<?php
 
 }
 
+add_action( 'bp_signup_validate', 'test_bp_signup_validate' );
+function test_bp_signup_validate() {
+	global $bp;
 
-add_filter( 'bp_core_validate_user_signup', 'all_in_one_invite_codes_bp_core_validate_user_signup',  10, 1 );
+	// Check if the field has a code
+	if ( empty( $_POST['signup_invite_code'] ) || ! empty( $_POST['signup_invite_code'] ) && trim( $_POST['signup_invite_code'] ) == '' ) {
+		$bp->signup->errors['signup_invite_code'] = __( 'Please enter a Invite Code.', 'buddypress' );
+	} else {
 
-function all_in_one_invite_codes_bp_core_validate_user_signup( $result ){
-    global $errors;
+		$tk_invite_code = sanitize_key( trim( $_POST['tk_invite_code'] ) );
 
-
-	$errors['sadasd'] = 'asdad';
-
-
-
-//	$errors = $result['errors'];
-//	$errors->add( 'invite_code', __( 'INVITE CODE ISSE!', 'all-in-one-invite-code' ) );
-//	$result['errors'] = $errors;
-
-	return $result;
+		// Validate teh code
+		$result = all_in_one_invite_codes_validate_code( $tk_invite_code, $user_email );
+		if ( isset( $result['error'] ) ) {
+			$bp->signup->errors['signup_invite_code'] = sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all-in-one-invite-code' ), $result['error'] );
+		}
+	}
 }
 
-add_action('bp_signup_validate', 'test_bp_signup_validate');
+if ( ! function_exists( 'br_fs' ) ) {
+	// Create a helper function for easy SDK access.
+	function br_fs() {
+		global $br_fs;
 
-function test_bp_signup_validate(){
-    global $bp;
+		if ( ! isset( $br_fs ) ) {
+			// Include Freemius SDK.
+			if ( file_exists( dirname( dirname( __FILE__ ) ) . '/all-in-one-invite-codes/includes/resources/freemius/start.php' ) ) {
+				// Try to load SDK from parent plugin folder.
+				require_once dirname( dirname( __FILE__ ) ) . '/all-in-one-invite-codes/includes/resources/freemius/start.php';
+			} elseif ( file_exists( dirname( dirname( __FILE__ ) ) . '/all-in-one-invite-codes-premium/includes/resources/freemius/start.php' ) ) {
+				// Try to load SDK from premium parent plugin folder.
+				require_once dirname( dirname( __FILE__ ) ) . '/all-in-one-invite-codes-premium/includes/resources/freemius/start.php';
+			}
 
-    $bp->signup->errors['signup_invite_code'] = __( 'This is a Invite Code  field', 'buddypress' );
+
+			$br_fs = fs_dynamic_init( array(
+				'id'               => '3323',
+				'slug'             => 'buddypress',
+				'premium_slug'     => 'buddypress-registration-premium',
+				'type'             => 'plugin',
+				'public_key'       => 'pk_25bbf96c6d7f5376ee564ad54df6d',
+				'is_premium'       => true,
+				'is_premium_only'  => true,
+				'has_paid_plans'   => true,
+				'is_org_compliant' => false,
+				'trial'            => array(
+					'days'               => 7,
+					'is_require_payment' => false,
+				),
+				'parent'           => array(
+					'id'         => '3322',
+					'slug'       => 'all-in-one-invite-codes',
+					'public_key' => 'pk_955be38b0c4d2a2914a9f4bc98355',
+					'name'       => 'All in One Invite Codes',
+				),
+				'menu'             => array(
+					'support' => false,
+				),
+				// Set the SDK to work in a sandbox mode (for development & testing).
+				// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
+				'secret_key'       => 'sk_ubfl<&0n57I*Qq8aPGtBCxL!BH[5u',
+			) );
+		}
+
+		return $br_fs;
+	}
+}
+function br_fs_is_parent_active_and_loaded() {
+	// Check if the parent's init SDK method exists.
+	return function_exists( 'all_in_one_invite_codes_core_fs' );
 }
 
+function br_fs_is_parent_active() {
+	$active_plugins = get_option( 'active_plugins', array() );
+
+	if ( is_multisite() ) {
+		$network_active_plugins = get_site_option( 'active_sitewide_plugins', array() );
+		$active_plugins         = array_merge( $active_plugins, array_keys( $network_active_plugins ) );
+	}
+
+	foreach ( $active_plugins as $basename ) {
+		if ( 0 === strpos( $basename, 'all-in-one-invite-codes/' ) ||
+		     0 === strpos( $basename, 'all-in-one-invite-codes-premium/' )
+		) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+function br_fs_init() {
+	if ( br_fs_is_parent_active_and_loaded() ) {
+		// Init Freemius.
+		br_fs();
+
+
+		// Signal that the add-on's SDK was initiated.
+		do_action( 'br_fs_loaded' );
+
+		// Parent is active, add your init code here.
+
+	} else {
+		// Parent is inactive, add your error handling here.
+	}
+}
+
+if ( br_fs_is_parent_active_and_loaded() ) {
+	// If parent already included, init add-on.
+	br_fs_init();
+} else if ( br_fs_is_parent_active() ) {
+	// Init add-on only after the parent is loaded.
+	add_action( 'all_in_one_invite_codes_core_fs_loaded', 'br_fs_init' );
+} else {
+	// Even though the parent is not activated, execute add-on for activation / uninstall hooks.
+	br_fs_init();
+}
