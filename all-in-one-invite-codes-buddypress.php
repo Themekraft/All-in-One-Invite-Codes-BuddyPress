@@ -54,7 +54,7 @@ function all_in_one_invite_codes_profile_tab_screen() {
 }
 
 function all_in_one_invite_codes_profile_tab_tab_title() {
-	echo __( 'Invite Friends', 'all-in-one-invite-codes' );
+	echo '';//__( 'Invite Friends', 'all-in-one-invite-codes' );
 }
 
 
@@ -64,7 +64,7 @@ function all_in_one_invite_codes_profile_tab_tab_content() {
 		'posts_per_page' => - 1,
 		'post_type'      => 'tk_invite_codes', //you can use also 'any'
 	);
-	all_in_one_invite_codes_list_codes( $args );
+	echo all_in_one_invite_codes_list_codes( $args );
 }
 
 
@@ -240,10 +240,7 @@ if ( ! function_exists( 'br_fs' ) ) {
 				),
 				'menu'             => array(
 					'support' => false,
-				),
-				// Set the SDK to work in a sandbox mode (for development & testing).
-				// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-				'secret_key'       => 'sk_ubfl<&0n57I*Qq8aPGtBCxL!BH[5u',
+				)
 			) );
 		}
 
