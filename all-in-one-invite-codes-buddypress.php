@@ -4,7 +4,7 @@
  * Plugin Name: All in One Invite Codes BuddyPress
  * Plugin URI:  https://themekraft.com/all-in-one-invite-codes/
  * Description: Create Invite only Forms
- * Version: 1.0
+ * Version: 1.0.1
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/
  * Licence: GPLv3
@@ -192,10 +192,10 @@ function test_bp_signup_validate() {
 		$bp->signup->errors['signup_invite_code'] = __( 'Please enter a Invite Code.', 'buddypress' );
 	} else {
 
-		$tk_invite_code = sanitize_key( trim( $_POST['tk_invite_code'] ) );
+		$tk_invite_code = sanitize_key( trim( $_POST['signup_invite_code'] ) );
 
 		// Validate teh code
-		$result = all_in_one_invite_codes_validate_code( $tk_invite_code, $user_email );
+		$result = all_in_one_invite_codes_validate_code( $tk_invite_code, $_POST['signup_email'] );
 		if ( isset( $result['error'] ) ) {
 			$bp->signup->errors['signup_invite_code'] = sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all-in-one-invite-code' ), $result['error'] );
 		}
