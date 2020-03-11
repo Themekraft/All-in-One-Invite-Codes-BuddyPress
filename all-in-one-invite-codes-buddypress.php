@@ -10,6 +10,7 @@
  * Licence: GPLv3
  * Network: false
  * Text Domain: all-in-one-invite-codes-buddypress
+ * Domain Path: /languages
  *
  * ****************************************************************************
  *
@@ -30,9 +31,11 @@
  ****************************************************************************
  */
 
-function load_plugin_textdomain() {
-    load_plugin_textdomain( 'all_in_one_invite_codes-buddypress', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+function aioic_buddypress_load_plugin_textdomain() {
+	load_plugin_textdomain( 'all_in_one_invite_codes-buddypress', false, basename( dirname( __FILE__ ) ) . '/languages' );
 }
+add_action( 'init', 'aioic_buddypress_load_plugin_textdomain' );
+
 function all_in_one_invite_codes_profile_tab() {
 	global $bp;
 
@@ -121,7 +124,7 @@ function all_in_one_invite_codes_buddypress_settings_page_tab( $tab ) {
                             </th>
                             <td>
 								<?php
-								$pages['enabled'] = __('Enable','all_in_one_invite_codes-buddypress');
+								$pages['enabled'] = __('Enable','all-in-one-invite-codes-buddypress');
 								$pages['disable'] = __('Disable','all_in_one_invite_codes-buddypress');
 
 								if ( isset( $pages ) && is_array( $pages ) ) {
