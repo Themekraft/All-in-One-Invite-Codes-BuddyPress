@@ -2,14 +2,15 @@
 
 /**
  * Plugin Name: All in One Invite Codes BuddyPress
- * Plugin URI:  https://themekraft.com/all-in-one-invite-codes/
+ * Plugin URI: https://themekraft.com/products/all-in-one-invite-codes-buddypress/
  * Description: Create Invite only Forms
  * Version: 1.0.2
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/
  * Licence: GPLv3
  * Network: false
- * Text Domain: all-in-one-invite-codes
+ * Text Domain: all-in-one-invite-codes-buddypress
+ * Domain Path: /languages
  *
  * ****************************************************************************
  *
@@ -30,11 +31,16 @@
  ****************************************************************************
  */
 
+function aioic_buddypress_load_plugin_textdomain() {
+	load_plugin_textdomain( 'all_in_one_invite_codes-buddypress', false, basename( dirname( __FILE__ ) ) . '/languages' );
+}
+add_action( 'init', 'aioic_buddypress_load_plugin_textdomain' );
+
 function all_in_one_invite_codes_profile_tab() {
 	global $bp;
 
 	bp_core_new_nav_item( array(
-		'name'                => __( 'Invite Friends', 'all-in-one-invite-codes' ),
+		'name'                => __( 'Invite Friends', 'all_in_one_invite_codes-buddypress' ),
 		'slug'                => apply_filters( 'all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes' ),
 		'screen_function'     => 'all_in_one_invite_codes_profile_tab_screen',
 		'position'            => 40,
@@ -128,12 +134,12 @@ function all_in_one_invite_codes_buddypress_settings_page_tab( $tab ) {
                         <tbody>
                         <tr valign="top">
                             <th scope="row" valign="top">
-								<?php _e( 'Profile Integration', 'all-in-one-invite-codes' ); ?>
+								<?php _e( 'Profile Integration', 'all_in_one_invite_codes-buddypress' ); ?>
                             </th>
                             <td>
 								<?php
-								$pages['enabled'] = 'Enable';
-								$pages['disable'] = 'Disable';
+								$pages['enabled'] = __('Enable','all-in-one-invite-codes-buddypress');
+								$pages['disable'] = __('Disable','all_in_one_invite_codes-buddypress');
 
 								if ( isset( $pages ) && is_array( $pages ) ) {
 									echo '<select name="all_in_one_invite_codes_buddypress[profile_tab]" id="all_in_one_invite_codes_buddypress">';
@@ -152,8 +158,8 @@ function all_in_one_invite_codes_buddypress_settings_page_tab( $tab ) {
                             </th>
                             <td>
 								<?php
-								$pages['enabled'] = 'Enable';
-								$pages['disable'] = 'Disable';
+                                $pages['enabled'] = __('Enable','all_in_one_invite_codes-buddypress');
+                                $pages['disable'] = __('Disable','all_in_one_invite_codes-buddypress');
 
 								if ( isset( $pages ) && is_array( $pages ) ) {
 									echo '<select name="all_in_one_invite_codes_buddypress[profile_tab]" id="all_in_one_invite_codes_buddypress">';
@@ -188,7 +194,7 @@ function all_in_one_invite_codes_bp_after_profile_field_content() {
 
 	?>
     <p>
-        <label for="signup_invite_code"><?php _e( 'Invitation Code', 'all-in-one-invite-code' ) ?></label>
+        <label for="signup_invite_code"><?php _e( 'Invitation Code', 'all_in_one_invite_codes-buddypress' ) ?></label>
 		<?php echo do_action( 'bp_signup_invite_code_errors' ) ?>
         <input type="text" name="signup_invite_code" id="signup_invite_code" class="input" required="required"
                value="<?php echo esc_attr( $tk_invite_code ); ?>" size="25"/>
@@ -203,7 +209,7 @@ function test_bp_signup_validate() {
 
 	// Check if the field has a code
 	if ( empty( $_POST['signup_invite_code'] ) || ! empty( $_POST['signup_invite_code'] ) && trim( $_POST['signup_invite_code'] ) == '' ) {
-		$bp->signup->errors['signup_invite_code'] = __( 'Please enter a Invite Code.', 'buddypress' );
+		$bp->signup->errors['signup_invite_code'] = __( 'Please enter a Invite Code.', 'all_in_one_invite_codes-buddypress' );
 	} else {
 
 		$tk_invite_code = sanitize_key( trim( $_POST['signup_invite_code'] ) );
@@ -211,7 +217,7 @@ function test_bp_signup_validate() {
 		// Validate teh code
 		$result = all_in_one_invite_codes_validate_code( $tk_invite_code, $_POST['signup_email'] );
 		if ( isset( $result['error'] ) ) {
-			$bp->signup->errors['signup_invite_code'] = sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all-in-one-invite-code' ), $result['error'] );
+			$bp->signup->errors['signup_invite_code'] = sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all_in_one_invite_codes-buddypress' ), $result['error'] );
 		}
 	}
 }
