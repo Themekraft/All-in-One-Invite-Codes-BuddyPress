@@ -80,7 +80,8 @@ function all_in_one_invite_codes_profile_tab_tab_content() {
     <div id="all_in_one_invite_codes_profile_modal" style="display:none;">
 		<div id="buddyforms_invite_wrap">
             <?php do_shortcode('[all_in_one_invite_codes_create]'); ?>
-            <button id="" data-post_id="<?php echo $post_id ?>" href="#" class="button"><?php echo __( 'Sent Invite', 'buddyforms-collaborative-publishing' ) ?></button>
+            <button id="tk_all_in_one_invite_code_buddypress_create" data-post_id="<?php echo $post_id ?>" href="#" class="button"><?php echo __( 'Create Invite', 'all-in-one-invite-code-buddypress' ) ?></button>
+            <img width="30" height="30" src="<?php echo plugin_dir_url(__FILE__).'/spinner/spinner.gif'?>" id="loader" style="display: none">
 		</div>
     </div>
     <?php
