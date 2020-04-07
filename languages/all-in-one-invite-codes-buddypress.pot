@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: All in One Invite Codes BuddyPress\n"
-"POT-Creation-Date: 2020-03-10 20:46-0300\n"
+"POT-Creation-Date: 2020-04-07 20:54-0300\n"
 "PO-Revision-Date: 2020-03-10 20:34-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,8 +16,8 @@ msgstr ""
 "X-Poedit-WPHeader: all-in-one-invite-codes-buddypress.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
@@ -25,33 +25,38 @@ msgstr ""
 msgid "Invite Friends"
 msgstr ""
 
-#: all-in-one-invite-codes-buddypress.php:123
+#: all-in-one-invite-codes-buddypress.php:78
+#: all-in-one-invite-codes-buddypress.php:83
+msgid "Create Invite"
+msgstr ""
+
+#: all-in-one-invite-codes-buddypress.php:138
 msgid "Profile Integration"
 msgstr ""
 
-#: all-in-one-invite-codes-buddypress.php:127
-#: all-in-one-invite-codes-buddypress.php:147
+#: all-in-one-invite-codes-buddypress.php:142
+#: all-in-one-invite-codes-buddypress.php:162
 msgid "Enable"
 msgstr ""
 
-#: all-in-one-invite-codes-buddypress.php:128
-#: all-in-one-invite-codes-buddypress.php:148
+#: all-in-one-invite-codes-buddypress.php:143
+#: all-in-one-invite-codes-buddypress.php:163
 msgid "Disable"
 msgstr ""
 
-#: all-in-one-invite-codes-buddypress.php:143
+#: all-in-one-invite-codes-buddypress.php:158
 msgid "BuddyPress Registration"
 msgstr ""
 
-#: all-in-one-invite-codes-buddypress.php:183
+#: all-in-one-invite-codes-buddypress.php:198
 msgid "Invitation Code"
 msgstr ""
 
-#: all-in-one-invite-codes-buddypress.php:198
+#: all-in-one-invite-codes-buddypress.php:213
 msgid "Please enter a Invite Code."
 msgstr ""
 
-#: all-in-one-invite-codes-buddypress.php:206
+#: all-in-one-invite-codes-buddypress.php:221
 msgid "ERROR"
 msgstr ""
 

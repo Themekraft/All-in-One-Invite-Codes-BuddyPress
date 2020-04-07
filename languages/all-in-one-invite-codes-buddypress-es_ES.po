@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: All in One Invite Codes BuddyPress\n"
-"POT-Creation-Date: 2020-03-10 21:25-0300\n"
-"PO-Revision-Date: 2020-03-10 21:32-0300\n"
+"POT-Creation-Date: 2020-04-07 20:54-0300\n"
+"PO-Revision-Date: 2020-04-07 20:54-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -25,33 +25,40 @@ msgstr ""
 msgid "Invite Friends"
 msgstr "Invitar a amigos"
 
-#: all-in-one-invite-codes-buddypress.php:123
+#: all-in-one-invite-codes-buddypress.php:78
+#: all-in-one-invite-codes-buddypress.php:83
+#, fuzzy
+#| msgid "Create Invite only Forms"
+msgid "Create Invite"
+msgstr "Crear formularios de solo invitación"
+
+#: all-in-one-invite-codes-buddypress.php:138
 msgid "Profile Integration"
 msgstr "Integración de perfiles"
 
-#: all-in-one-invite-codes-buddypress.php:127
-#: all-in-one-invite-codes-buddypress.php:147
+#: all-in-one-invite-codes-buddypress.php:142
+#: all-in-one-invite-codes-buddypress.php:162
 msgid "Enable"
 msgstr "Habilitar"
 
-#: all-in-one-invite-codes-buddypress.php:128
-#: all-in-one-invite-codes-buddypress.php:148
+#: all-in-one-invite-codes-buddypress.php:143
+#: all-in-one-invite-codes-buddypress.php:163
 msgid "Disable"
 msgstr "Deshabilitar"
 
-#: all-in-one-invite-codes-buddypress.php:143
+#: all-in-one-invite-codes-buddypress.php:158
 msgid "BuddyPress Registration"
 msgstr "Registro de BuddyPress"
 
-#: all-in-one-invite-codes-buddypress.php:183
+#: all-in-one-invite-codes-buddypress.php:198
 msgid "Invitation Code"
 msgstr "Código de invitación"
 
-#: all-in-one-invite-codes-buddypress.php:198
+#: all-in-one-invite-codes-buddypress.php:213
 msgid "Please enter a Invite Code."
 msgstr "Introduce un código de invitación."
 
-#: all-in-one-invite-codes-buddypress.php:206
+#: all-in-one-invite-codes-buddypress.php:221
 msgid "ERROR"
 msgstr "ERROR"
 
