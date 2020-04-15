@@ -195,9 +195,9 @@ function all_in_one_invite_codes_bp_after_profile_field_content() {
 
 	?>
     <p>
-        <label for="signup_invite_code"><?php _e( 'Invitation Code', 'all_in_one_invite_codes-buddypress' ) ?></label>
-		<?php echo do_action( 'bp_signup_invite_code_errors' ) ?>
-        <input type="text" name="signup_invite_code" id="signup_invite_code" class="input" required="required"
+        <label for="tk_invite_code"><?php _e( 'Invitation Code', 'all_in_one_invite_codes-buddypress' ) ?></label>
+		<?php echo do_action( 'bp_tk_invite_code_errors' ) ?>
+        <input type="text" name="tk_invite_code" id="tk_invite_code" class="input" required="required"
                value="<?php echo esc_attr( $tk_invite_code ); ?>" size="25"/>
     </p>
 	<?php
@@ -209,16 +209,16 @@ function test_bp_signup_validate() {
 	global $bp;
 
 	// Check if the field has a code
-	if ( empty( $_POST['signup_invite_code'] ) || ! empty( $_POST['signup_invite_code'] ) && trim( $_POST['signup_invite_code'] ) == '' ) {
-		$bp->signup->errors['signup_invite_code'] = __( 'Please enter a Invite Code.', 'all_in_one_invite_codes-buddypress' );
+	if ( empty( $_POST['tk_invite_code'] ) || ! empty( $_POST['tk_invite_code'] ) && trim( $_POST['tk_invite_code'] ) == '' ) {
+		$bp->signup->errors['tk_invite_code'] = __( 'Please enter a Invite Code.', 'all_in_one_invite_codes-buddypress' );
 	} else {
 
-		$tk_invite_code = sanitize_key( trim( $_POST['signup_invite_code'] ) );
+		$tk_invite_code = sanitize_key( trim( $_POST['tk_invite_code'] ) );
 
 		// Validate teh code
 		$result = all_in_one_invite_codes_validate_code( $tk_invite_code, $_POST['signup_email'] );
 		if ( isset( $result['error'] ) ) {
-			$bp->signup->errors['signup_invite_code'] = sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all_in_one_invite_codes-buddypress' ), $result['error'] );
+			$bp->signup->errors['tk_invite_code'] = sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all_in_one_invite_codes-buddypress' ), $result['error'] );
 		}
 	}
 }
