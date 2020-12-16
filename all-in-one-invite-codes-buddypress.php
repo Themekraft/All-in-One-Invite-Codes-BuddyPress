@@ -30,9 +30,22 @@
  *
  ****************************************************************************
  */
+add_action( 'wp_enqueue_scripts', 'aioic_buddypress_scripts', 100,1 );
 
+function aioic_buddypress_scripts(){
+    wp_enqueue_script( 'aioic_buddypress',  plugins_url( '/', __FILE__ ).'assets/js/aioic_buddypress.js', array('jquery'), false, true );
+    wp_enqueue_style('aioic_bb_icons',plugins_url( '/', __FILE__ ).'assets/icons/aioic-bb-icons.css',array(),false,false);
+    wp_enqueue_script( 'buddyforms-loadingoverlay', plugins_url( '/', __FILE__ ) . 'assets/loadingoverlay/loadingoverlay.min.js', array( 'jquery' ) );
+    wp_enqueue_script( 'jquery-validation', plugins_url( '/', __FILE__ ) . 'assets/js/jquery.validate.js', array( 'jquery' ) );
+    $front_js_arguments = array(
+        'admin_url'                => admin_url( 'admin-ajax.php' ),
+
+    );
+    wp_localize_script( "aioic_buddypress", "aioicBuddyformsGlobal", $front_js_arguments );
+}
 function aioic_buddypress_load_plugin_textdomain() {
 	load_plugin_textdomain( 'all_in_one_invite_codes-buddypress', false, basename( dirname( __FILE__ ) ) . '/languages' );
+    require_once( 'form-ajax.php' );
 }
 add_action( 'init', 'aioic_buddypress_load_plugin_textdomain' );
 
@@ -46,24 +59,75 @@ function all_in_one_invite_codes_profile_tab() {
 		'position'            => 40,
 		'parent_url'          => bp_loggedin_user_domain() . '/' . apply_filters( 'all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes' ) . '/',
 		'parent_slug'         => $bp->profile->slug,
-		'default_subnav_slug' => apply_filters( 'all_in_one_invite_codes_profile_sub_tab_slug', 'all-in-one-invite-code' ),
+		'default_subnav_slug' => apply_filters( 'all_in_one_invite_codes_profile_tab_slug1', 'all-in-one-invite-codes' ),
 	) );
+    $access       = bp_core_can_edit_settings();
+
+
+    bp_core_new_subnav_item(array(
+        'name'            => __( 'Single Invites ', 'all_in_one_invite_codes-buddypress' ),
+        'slug'            => 'single-invites',
+        'parent_url'      => bp_loggedin_user_domain() . '/' . apply_filters( 'all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes' ) . '/',
+        'parent_slug'     => apply_filters( 'all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes' ),
+        'screen_function' => 'all_in_one_invite_codes_profile_tab_screen',
+        'user_has_access' => $access,
+        'position'        => 15,
+    ));
+    bp_core_new_subnav_item(array(
+        'name'            => __( 'Multiple Invites ', 'all_in_one_invite_codes-buddypress' ),
+        'slug'            => 'multiple-invites',
+        'parent_url'      => bp_loggedin_user_domain() . '/' . apply_filters( 'all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes' ) . '/',
+        'parent_slug'     => apply_filters( 'all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes' ),
+        'screen_function' => 'all_in_one_invite_codes_profile_tab_multiple_invite_screen',
+        'user_has_access' => $access,
+        'position'        => 21,
+    ));
+    bp_core_new_subnav_item(array(
+        'name'            => __( 'Sent Invites ', 'all_in_one_invite_codes-buddypress' ),
+        'slug'            => 'aioic_sent-invites',
+        'parent_url'      => bp_loggedin_user_domain() . '/' . apply_filters( 'all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes' ) . '/',
+        'parent_slug'     => apply_filters( 'all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes' ),
+        'screen_function' => 'all_in_one_invite_codes_profile_tab_aioic_sent_invites_screen',
+        'user_has_access' => $access,
+        'position'        => 25,
+    ));
+
 }
 
 add_action( 'bp_setup_nav', 'all_in_one_invite_codes_profile_tab' );
 
-
+function all_in_one_invite_codes_profile_tab_aioic_sent_invites_screen() {
+    add_action( 'bp_template_title', 'all_in_one_invite_codes_profile_tab_tab_title' );
+    add_action( 'bp_template_content', 'all_in_one_invite_codes_profile_tab_aioic_sent_invite_content' );
+    bp_core_load_template( 'buddypress/members/single/plugins' );
+}
 function all_in_one_invite_codes_profile_tab_screen() {
 	add_action( 'bp_template_title', 'all_in_one_invite_codes_profile_tab_tab_title' );
 	add_action( 'bp_template_content', 'all_in_one_invite_codes_profile_tab_tab_content' );
 	bp_core_load_template( 'buddypress/members/single/plugins' );
 }
+function all_in_one_invite_codes_profile_tab_multiple_invite_screen() {
+    add_action( 'bp_template_title', 'all_in_one_invite_codes_profile_tab_tab_title' );
+    add_action( 'bp_template_content', 'all_in_one_invite_codes_profile_tab_multiple_invite_content' );
+    bp_core_load_template( 'buddypress/members/single/plugins' );
+}
 
 function all_in_one_invite_codes_profile_tab_tab_title() {
 	echo '';//__( 'Invite Friends', 'all-in-one-invite-codes' );
 }
+function all_in_one_invite_codes_profile_tab_aioic_sent_invite_content() {
 
 
+    require 'aioic-sent-invites.php';
+
+}
+
+function all_in_one_invite_codes_profile_tab_multiple_invite_content() {
+
+
+   require 'multiple-invites.php';
+
+}
 function all_in_one_invite_codes_profile_tab_tab_content() {
     global $post;
     $post_id = '';
