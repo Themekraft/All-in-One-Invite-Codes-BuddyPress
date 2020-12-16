@@ -39,7 +39,7 @@ function aioic_send_multiple_invites()
         );
         $invitee = $form_data['invitee'] [$index][0];
         $email                                                 = $form_data['email'] [$index][0];
-        $generate_codes                                        = $form_data['invite_amount'] [0][0];
+        $generate_codes                                        = $form_data['invite_amount'] [$index][0];
         $type                                                  =  'any';
         $all_in_one_invite_codes_new_options                   = array();
         $all_in_one_invite_codes_new_options['email']          = sanitize_email( $email );
