@@ -1,0 +1,173 @@
+body.all-in-one-invite-codes #TB_window #buddyforms_invite_wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+body.all-in-one-invite-codes #TB_window #TB_ajaxContent {
+  padding: 24px;
+  width: 100% !important;
+}
+
+body.all-in-one-invite-codes #TB_window #buddyforms_invite_wrap > div {
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+}
+
+body.all-in-one-invite-codes #TB_window #buddyforms_invite_wrap > div:first-child {
+  padding-top: 0;
+}
+
+body.all-in-one-invite-codes #TB_window #buddyforms_invite_wrap > div > p {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  margin-top: 24px;
+  align-items: center;
+  flex-direction: row;
+}
+
+body.all-in-one-invite-codes #TB_window #buddyforms_invite_wrap > div input,
+body.all-in-one-invite-codes #TB_window #buddyforms_invite_wrap > div select {
+  width: 90%;
+  height: 40px;
+  min-height: 0;
+  display: block;
+  padding: 0 12px;
+  max-width: 350px;
+  margin-left: auto;
+  box-sizing: border-box;
+}
+
+body.all-in-one-invite-codes #TB_window #buddyforms_invite_wrap button#tk_all_in_one_invite_code_buddypress_create {
+  height: 40px;
+  padding: 0 12px;
+  margin-top: 24px;
+  margin-left: auto;
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes {
+  margin-top: 12px;
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul {
+  font-size: 16px;
+  padding-left: 0;
+  border-top: 1px solid rgba(0,0,0,0.25);
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li {
+  display: flex;
+  padding: 12px 0;
+  border-radius: 0;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li .aioic-top {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li .aioic-info {
+  display: flex;
+  flex-direction: column;
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li .aioic-right {
+  display: flex;
+  margin-left: auto;
+  margin-right: 0;
+  text-align: right;
+  padding-left: 12px;
+  align-items: center;
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li p:empty,
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li span:empty,
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li div:empty {
+  display: none;
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li a.button {
+  height: auto;
+  display: table;
+  padding: 8px 12px;
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li .aioic-form {
+  width: 100%;
+  display: flex;
+  margin-top: 6px;
+  flex-direction: column;
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li .aioic-form p {
+  display: flex;
+  padding-bottom: 6px;
+  flex-direction: column;
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li .aioic-form p span {
+  padding: 6px 0;
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li .aioic-form p span:first-child,
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li .aioic-form p:first-child {
+  padding-top: 0;
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li .aioic-form p input,
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li .aioic-form p textarea {
+  margin: 0;
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li .aioic-form #tk_all_in_one_invite_code_send_invite_to_error {
+  color: red;
+  margin-top: 6px;
+}
+
+body.all-in-one-invite-codes #all_in_one_invite_codes_list_codes ul > li .aioic-form .button {
+  margin-top: 6px;
+}
+
+body.all-in-one-invite-codes #aioic_form_hero tbody tr {
+  height: 50px;
+}
+
+body.all-in-one-invite-codes #aioic_form_hero tbody tr td {
+  padding: 0;
+}
+
+body.all-in-one-invite-codes #aioic_form_hero tbody tr td:last-child {
+  padding: 0 4px;
+}
+
+body.all-in-one-invite-codes #aioic_form_hero input,
+body.all-in-one-invite-codes #aioic_form_hero textarea {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+body.all-in-one-invite-codes #aioic_form_hero .aioci-invite-settings input {
+  border: none;
+  height: 50px;
+  padding: 0 .5em;
+}
+
+body.all-in-one-invite-codes #aioic_form_hero .info.invite-info {
+  margin-bottom: 12px;
+}
+
+body.all-in-one-invite-codes #aioic_form_hero #tk_all_in_one_invite_code_send_invite_form {
+  margin-top: 24px;
+}
+
+body.all-in-one-invite-codes #aioic_form_hero #tk_all_in_one_invite_code_send_invite_form p {
+  margin-bottom: 12px;
+}
+
+body.all-in-one-invite-codes #aioic_form_hero #tk_all_in_one_invite_code_send_invite_form p textarea {
+  margin-top: 6px;
+}

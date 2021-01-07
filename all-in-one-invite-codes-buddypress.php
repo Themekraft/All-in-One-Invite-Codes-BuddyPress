@@ -33,6 +33,7 @@
 add_action( 'wp_enqueue_scripts', 'aioic_buddypress_scripts', 100,1 );
 
 function aioic_buddypress_scripts(){
+		wp_enqueue_style('aioic_style', plugins_url( '/', __FILE__ ) . 'assets/css/main.css', array(), false, false);
     wp_enqueue_script( 'aioic_buddypress',  plugins_url( '/', __FILE__ ).'assets/js/aioic_buddypress.js', array('jquery'), false, true );
     wp_enqueue_style('aioic_bb_icons',plugins_url( '/', __FILE__ ).'assets/icons/aioic-bb-icons.css',array(),false,false);
     wp_enqueue_script( 'buddyforms-loadingoverlay', plugins_url( '/', __FILE__ ) . 'assets/loadingoverlay/loadingoverlay.min.js', array( 'jquery' ) );
@@ -139,7 +140,7 @@ function all_in_one_invite_codes_profile_tab_tab_content() {
 	AllinOneInviteCodes::setNeedAssets(true, 'buddypress');
 	?>
     <p>
-		<a id="all_in_one_invite_codes_profile" href="#TB_inline?width=800&height=auto&inlineId=all_in_one_invite_codes_profile_modal" title="" class="thickbox button"><?php _e( 'Create Invite', 'all-in-one-invite-code' ) ?></a>
+		<a id="all_in_one_invite_codes_profile" href="#TB_inline?width=500&height=auto&inlineId=all_in_one_invite_codes_profile_modal" title="" class="thickbox button"><?php _e( 'Create Invite', 'all-in-one-invite-code' ) ?></a>
 	</p>
     <div id="all_in_one_invite_codes_profile_modal" style="display:none;">
 		<div id="buddyforms_invite_wrap">
@@ -149,7 +150,9 @@ function all_in_one_invite_codes_profile_tab_tab_content() {
 		</div>
     </div>
     <?php
+	echo '<div id="all_in_one_invite_codes_list_codes">';
 	echo all_in_one_invite_codes_list_codes( $args );
+	echo '</div>';
 }
 
 
