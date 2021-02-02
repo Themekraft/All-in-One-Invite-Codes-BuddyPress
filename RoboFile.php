@@ -12,7 +12,7 @@ class RoboFile extends RoboFileBase {
 	}
 
 	public function cleanPhpDirectories() {
-		return array( '' );
+		return array();
 	}
 
 	public function pluginMainFile() {
