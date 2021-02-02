@@ -20,7 +20,7 @@ class RoboFile extends RoboFileBase {
 	}
 
 	public function pluginFreemiusId() {
-		return 3322;
+		return 3323;
 	}
 
 	public function minifyAssetsDirectories() {
