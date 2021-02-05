@@ -1,4 +1,6 @@
+<?php
 
+?>
 <h2 class="screen-heading general-settings-screen">
     <?php _e( 'Sent Invites', 'buddyboss' ); ?>
 </h2>
