@@ -8,7 +8,7 @@ class RoboFile extends RoboFileBase {
 	}
 
 	public function fileStructure() {
-		return array( 'all-in-one-invite-codes-buddypress.php', 'composer.json', 'license.txt', 'readme.txt' );
+		return array( 'all-in-one-invite-codes-buddypress.php', 'multiple-invites.php', 'form-ajax.php', 'aioic-sent-invites.php', 'composer.json', 'license.txt', 'loco.xml', 'readme.txt' );
 	}
 
 	public function cleanPhpDirectories() {
