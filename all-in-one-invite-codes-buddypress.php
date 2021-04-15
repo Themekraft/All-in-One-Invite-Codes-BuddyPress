@@ -34,7 +34,7 @@ add_action( 'wp_enqueue_scripts', 'aioic_buddypress_scripts', 100,1 );
 
 function aioic_buddypress_scripts(){
 		wp_enqueue_style('aioic_style', plugins_url( '/', __FILE__ ) . 'assets/css/main.css', array(), false, false);
-    wp_enqueue_script( 'aioic_buddypress',  plugins_url( '/', __FILE__ ).'assets/js/aioic_buddypress.js', array('jquery'), false, true );
+    wp_enqueue_script( 'aioic_buddypress',  plugins_url( '/', __FILE__ ).'assets/js/aioic_buddypress.js', array('jquery','bp-api-request'), false, true );
     wp_enqueue_style('aioic_bb_icons',plugins_url( '/', __FILE__ ).'assets/icons/aioic-bb-icons.css',array(),false,false);
     wp_enqueue_script( 'buddyforms-loadingoverlay', plugins_url( '/', __FILE__ ) . 'assets/loadingoverlay/loadingoverlay.min.js', array( 'jquery' ) );
     wp_enqueue_script( 'jquery-validation', plugins_url( '/', __FILE__ ) . 'assets/js/jquery.validate.js', array( 'jquery' ) );
@@ -240,6 +240,29 @@ function all_in_one_invite_codes_buddypress_settings_page_tab( $tab ) {
 								?>
                             </td>
                         </tr>
+                        <tr valign="top">
+                            <th scope="row" valign="top">
+                                <?php _e( 'Auto Follow', 'all-in-one-invite-codes' ); ?>
+                            </th>
+                            <td>
+                                <?php
+                                $pages['enabled'] = __('Enable','all_in_one_invite_codes-buddypress');
+                                $pages['disable'] = __('Disable','all_in_one_invite_codes-buddypress');
+
+                                if ( isset( $pages ) && is_array( $pages ) ) {
+                                    echo '<select name="all_in_one_invite_codes_buddypress[autofollow]" id="all_in_one_invite_codes_buddypress_autofollow">';
+
+                                    foreach ( $pages as $page_id => $page_name ) {
+                                        echo '<option ' . selected( $all_in_one_invite_codes_buddypress['autofollow'], $page_id ) . 'value="' . $page_id . '">' . $page_name . '</option>';
+                                    }
+                                    echo '</select>';
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <?php _e( 'Invite Codes automatically connects the invited user to the invitee profile', 'all-in-one-invite-codes' ); ?>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
 
@@ -288,6 +311,58 @@ function test_bp_signup_validate() {
 			$bp->signup->errors['tk_invite_code'] = sprintf( '<strong>%s</strong>: %s', __( 'ERROR', 'all_in_one_invite_codes-buddypress' ), $result['error'] );
 		}
 	}
+}
+
+add_action('bp_core_activated_user','aioic_buddypress_after_activation_process',10,3);
+function aioic_buddypress_after_activation_process($user_id,$key, $user){
+
+    global $bp;
+
+    $user = get_user_by( 'ID',$user_id);
+    $all_in_one_invite_codes_buddypress = get_option( 'all_in_one_invite_codes_buddypress' );
+    $enabled= isset($all_in_one_invite_codes_buddypress['autofollow']) ? $all_in_one_invite_codes_buddypress['autofollow'] : false;
+
+    if ($user->ID && $enabled=='enabled' ){
+        $email= $user->user_email;
+        $args = array(
+
+            'posts_per_page' => - 1,
+            'post_type'      => 'tk_invite_codes', //you can use also 'any'
+            'orderby' => 'post_author',
+            'order' => 'ASC'
+        );
+        $the_query = new WP_Query( $args );
+
+        if ( $the_query->have_posts() ) {
+
+            while ( $the_query->have_posts() ) : $the_query->the_post();
+                $all_in_one_invite_codes_options = get_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', true );
+                $email_needle                           = empty( $all_in_one_invite_codes_options['email'] ) ? '' : $all_in_one_invite_codes_options['email'];
+
+
+                if ( $email == $email_needle ) {
+                    $author_id =  (int)$the_query->post->post_author;
+                    $inviter      = get_user_by( 'ID',$author_id);
+                    $invited_by = $inviter->ID;
+                    if ( !friends_add_friend( $user->ID, $invited_by ) ) {
+                        bp_core_add_message( __( 'Friendship could not be requested.', 'buddypress' ), 'error' );
+
+                    } else {
+                        bp_core_add_message( __( 'Friendship requested', 'buddypress' ) );
+
+                    }
+                    break;
+
+
+                }
+
+
+
+
+            endwhile;
+        }
+
+    }
 }
 
 if ( ! function_exists( 'br_fs' ) ) {
