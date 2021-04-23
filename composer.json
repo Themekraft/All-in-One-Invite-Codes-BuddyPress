@@ -1,6 +1,7 @@
 {
 
   "require": {
-    "consolidation/robo": "^1.0.0"
+    "consolidation/robo": "^1.0.0",
+    "bamarni/composer-bin-plugin": "dev-master"
   }
 }
