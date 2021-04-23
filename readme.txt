@@ -2,9 +2,9 @@
 Contributors: svenl77, gfirem, vmarin
 Tags: registration, invite only, invite codes,
 Requires at least: 4.9
-Tested up to: 5.6
+Tested up to: 5.7.1
 Requires PHP: 5.3
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPL 3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,6 +16,10 @@ Create a invite only Community
 2. Let your members access new invite codes from there profile and Invite there friends
 
 == Changelog ==
+= 1.0.5 - 23 Apr  2021 =
+* Feature : AutoFollow Feature.
+* Feature : Status Widget Feature.
+
 = 1.0.4 - 28 Jan  2021 =
 * Fixed an issue related with deployment process, that were causing crashes on install & update of the plugin.
 
