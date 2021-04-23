@@ -31,13 +31,21 @@
  ****************************************************************************
  */
 add_action( 'wp_enqueue_scripts', 'aioic_buddypress_scripts', 100,1 );
+require_once( 'aioic-invites-widget.php');
+add_action( 'widgets_init', 'aioic_register_widget' );
+  function aioic_register_widget() {
+    register_widget( 'Aioic_Invites_Widget' );
+}
 
 function aioic_buddypress_scripts(){
 		wp_enqueue_style('aioic_style', plugins_url( '/', __FILE__ ) . 'assets/css/main.css', array(), false, false);
+    wp_enqueue_style('jquery-ui-styles', plugins_url( '/', __FILE__ ) . 'assets/css/jquery-ui.css', array(), false, false);
     wp_enqueue_script( 'aioic_buddypress',  plugins_url( '/', __FILE__ ).'assets/js/aioic_buddypress.js', array('jquery','bp-api-request'), false, true );
     wp_enqueue_style('aioic_bb_icons',plugins_url( '/', __FILE__ ).'assets/icons/aioic-bb-icons.css',array(),false,false);
     wp_enqueue_script( 'buddyforms-loadingoverlay', plugins_url( '/', __FILE__ ) . 'assets/loadingoverlay/loadingoverlay.min.js', array( 'jquery' ) );
     wp_enqueue_script( 'jquery-validation', plugins_url( '/', __FILE__ ) . 'assets/js/jquery.validate.js', array( 'jquery' ) );
+    wp_enqueue_script( 'jquery-ui', plugins_url( '/', __FILE__ ) .'assets/js/jquery-ui.js', array( 'jquery' ) );
+
     $front_js_arguments = array(
         'admin_url'                => admin_url( 'admin-ajax.php' ),
 
@@ -47,11 +55,13 @@ function aioic_buddypress_scripts(){
 function aioic_buddypress_load_plugin_textdomain() {
 	load_plugin_textdomain( 'all_in_one_invite_codes-buddypress', false, basename( dirname( __FILE__ ) ) . '/languages' );
     require_once( 'form-ajax.php' );
+
 }
 add_action( 'init', 'aioic_buddypress_load_plugin_textdomain' );
 
 function all_in_one_invite_codes_profile_tab() {
 	global $bp;
+
 
 	bp_core_new_nav_item( array(
 		'name'                => __( 'Invite Friends', 'all_in_one_invite_codes-buddypress' ),
