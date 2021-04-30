@@ -270,7 +270,30 @@ function all_in_one_invite_codes_buddypress_settings_page_tab( $tab ) {
                                 ?>
                             </td>
                             <td>
-                                <?php _e( 'Invite Codes automatically connects the invited user to the invitee profile', 'all-in-one-invite-codes' ); ?>
+                                <?php _e( 'Automatically follow the activity of the inviter profile', 'all-in-one-invite-codes' ); ?>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row" valign="top">
+                                <?php _e( 'Auto Connect', 'all-in-one-invite-codes' ); ?>
+                            </th>
+                            <td>
+                                <?php
+                                $pages['enabled'] = __('Enable','all_in_one_invite_codes-buddypress');
+                                $pages['disable'] = __('Disable','all_in_one_invite_codes-buddypress');
+
+                                if ( isset( $pages ) && is_array( $pages ) ) {
+                                    echo '<select name="all_in_one_invite_codes_buddypress[autoconnect]" id="all_in_one_invite_codes_buddypress_autoconnect">';
+
+                                    foreach ( $pages as $page_id => $page_name ) {
+                                        echo '<option ' . selected( $all_in_one_invite_codes_buddypress['autoconnect'], $page_id ) . 'value="' . $page_id . '">' . $page_name . '</option>';
+                                    }
+                                    echo '</select>';
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <?php _e( 'Automatically send a friend request to the inviter profile', 'all-in-one-invite-codes' ); ?>
                             </td>
                         </tr>
                         </tbody>
@@ -330,9 +353,10 @@ function aioic_buddypress_after_activation_process($user_id,$key, $user){
 
     $user = get_user_by( 'ID',$user_id);
     $all_in_one_invite_codes_buddypress = get_option( 'all_in_one_invite_codes_buddypress' );
-    $enabled= isset($all_in_one_invite_codes_buddypress['autofollow']) ? $all_in_one_invite_codes_buddypress['autofollow'] : false;
+    $autofollow_enabled= isset($all_in_one_invite_codes_buddypress['autofollow']) ? $all_in_one_invite_codes_buddypress['autofollow'] : false;
+    $autoconnect_enabled= isset($all_in_one_invite_codes_buddypress['autoconnect']) ? $all_in_one_invite_codes_buddypress['autoconnect'] : false;
 
-    if ($user->ID && $enabled=='enabled' ){
+    if ($user->ID && $autoconnect_enabled=='enabled' || $autofollow_enabled=='enabled'){
         $email= $user->user_email;
         $args = array(
 
@@ -350,17 +374,33 @@ function aioic_buddypress_after_activation_process($user_id,$key, $user){
                 $email_needle                           = empty( $all_in_one_invite_codes_options['email'] ) ? '' : $all_in_one_invite_codes_options['email'];
 
 
-                if ( $email == $email_needle ) {
+                if ( $email == $email_needle) {
                     $author_id =  (int)$the_query->post->post_author;
                     $inviter      = get_user_by( 'ID',$author_id);
                     $invited_by = $inviter->ID;
-                    if ( !friends_add_friend( $user->ID, $invited_by ) ) {
-                        bp_core_add_message( __( 'Friendship could not be requested.', 'buddypress' ), 'error' );
+                    if($autoconnect_enabled=='enabled'){
+                        if ( !friends_add_friend( $user->ID, $invited_by ) ) {
+                            bp_core_add_message( __( 'Friendship could not be requested.', 'buddypress' ), 'error' );
 
-                    } else {
-                        bp_core_add_message( __( 'Friendship requested', 'buddypress' ) );
+                        } else {
+                            bp_core_add_message( __( 'Friendship requested', 'buddypress' ) );
 
+                        }
                     }
+                    if($autofollow_enabled=='enabled'){
+                        $params = array
+                        (
+                            'leader_id'=> $invited_by,
+                            'follower_id'=>$user->ID
+                        );
+                        if(!bp_start_following($params)){
+
+                            bp_core_add_message( __( 'Error when start following user.', 'buddypress' ), 'error' );
+                        }else{
+                            bp_core_add_message( __( 'Started following user with success', 'buddypress' ) );
+                        }
+                    }
+
                     break;
 
 
