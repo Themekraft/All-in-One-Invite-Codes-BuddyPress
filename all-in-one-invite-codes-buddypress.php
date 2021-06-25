@@ -33,9 +33,21 @@
 add_action('wp_enqueue_scripts', 'aioic_buddypress_scripts', 100, 1);
 require_once('aioic-invites-widget.php');
 add_action('widgets_init', 'aioic_register_widget');
+add_action( 'init', 'load_plugin_textdomain_aioic_buddypress' ) ;
 function aioic_register_widget()
 {
     register_widget('Aioic_Invites_Widget');
+}
+
+/**
+		 * Load the textdomain for the plugin
+		 *
+		 * @package all_in_one_invite_codes
+		 * @since  0.1
+		 */
+function load_plugin_textdomain_aioic_buddypress() {
+
+	load_plugin_textdomain( 'all-in-one-invite-codes-buddypress', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
 function aioic_buddypress_scripts()
@@ -56,7 +68,7 @@ function aioic_buddypress_scripts()
 }
 function aioic_buddypress_load_plugin_textdomain()
 {
-    load_plugin_textdomain('all_in_one_invite_codes-buddypress', false, basename(dirname(__FILE__)) . '/languages');
+    
     require_once('form-ajax.php');
 }
 add_action('init', 'aioic_buddypress_load_plugin_textdomain');
@@ -67,7 +79,7 @@ function all_in_one_invite_codes_profile_tab()
 
 
     bp_core_new_nav_item(array(
-        'name'                => __('Invite Friends', 'all_in_one_invite_codes-buddypress'),
+        'name'                => __('Invite Friends', 'all-in-one-invite-codes-buddypress'),
         'slug'                => apply_filters('all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes'),
         'screen_function'     => 'all_in_one_invite_codes_profile_tab_screen',
         'position'            => 40,
@@ -79,7 +91,7 @@ function all_in_one_invite_codes_profile_tab()
 
 
     bp_core_new_subnav_item(array(
-        'name'            => __('Single Invites ', 'all_in_one_invite_codes-buddypress'),
+        'name'            => __('Single Invites ', 'all-in-one-invite-codes-buddypress'),
         'slug'            => 'single-invites',
         'parent_url'      => bp_loggedin_user_domain() . '/' . apply_filters('all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes') . '/',
         'parent_slug'     => apply_filters('all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes'),
@@ -88,7 +100,7 @@ function all_in_one_invite_codes_profile_tab()
         'position'        => 15,
     ));
     bp_core_new_subnav_item(array(
-        'name'            => __('Multiple Invites ', 'all_in_one_invite_codes-buddypress'),
+        'name'            => __('Multiple Invites ', 'all-in-one-invite-codes-buddypress'),
         'slug'            => 'multiple-invites',
         'parent_url'      => bp_loggedin_user_domain() . '/' . apply_filters('all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes') . '/',
         'parent_slug'     => apply_filters('all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes'),
@@ -97,7 +109,7 @@ function all_in_one_invite_codes_profile_tab()
         'position'        => 21,
     ));
     bp_core_new_subnav_item(array(
-        'name'            => __('Sent Invites ', 'all_in_one_invite_codes-buddypress'),
+        'name'            => __('Sent Invites ', 'all-in-one-invite-codes-buddypress'),
         'slug'            => 'aioic_sent-invites',
         'parent_url'      => bp_loggedin_user_domain() . '/' . apply_filters('all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes') . '/',
         'parent_slug'     => apply_filters('all_in_one_invite_codes_profile_tab_slug', 'all-in-one-invite-codes'),
@@ -162,13 +174,13 @@ function all_in_one_invite_codes_profile_tab_tab_content()
     <?php if ($create_invites_restricted == false) : ?>
 
         <p>
-            <a id="all_in_one_invite_codes_profile" href="#TB_inline?width=500&height=auto&inlineId=all_in_one_invite_codes_profile_modal" title="" class="thickbox button"><?php _e('Create Invite', 'all-in-one-invite-code') ?></a>
+            <a id="all_in_one_invite_codes_profile" href="#TB_inline?width=500&height=auto&inlineId=all_in_one_invite_codes_profile_modal" title="" class="thickbox button"><?php _e('Create Invite', 'all-in-one-invite-codes-buddypress') ?></a>
         </p>
 
         <div id="all_in_one_invite_codes_profile_modal" style="display:none;">
             <div id="buddyforms_invite_wrap">
                 <?php do_shortcode('[all_in_one_invite_codes_create]'); ?>
-                <button id="tk_all_in_one_invite_code_buddypress_create" data-post_id="<?php echo $post_id ?>" href="#" class="button"><?php echo __('Create Invite', 'all-in-one-invite-code-buddypress') ?></button>
+                <button id="tk_all_in_one_invite_code_buddypress_create" data-post_id="<?php echo $post_id ?>" href="#" class="button"><?php echo __('Create Invite', 'all-in-one-invite-codes-buddypress') ?></button>
                 <img width="30" height="30" src="<?php echo plugin_dir_url(__FILE__) . '/spinner/spinner.gif' ?>" id="loader" style="display: none">
             </div>
         </div>
@@ -230,12 +242,12 @@ function all_in_one_invite_codes_buddypress_settings_page_tab($tab)
                         <tbody>
                             <tr valign="top">
                                 <th scope="row" valign="top">
-                                    <?php _e('Profile Integration', 'all_in_one_invite_codes-buddypress'); ?>
+                                    <?php _e('Profile Integration', 'all-in-one-invite-codes-buddypress'); ?>
                                 </th>
                                 <td>
                                     <?php
                                     $pages['enabled'] = __('Enable', 'all-in-one-invite-codes-buddypress');
-                                    $pages['disable'] = __('Disable', 'all_in_one_invite_codes-buddypress');
+                                    $pages['disable'] = __('Disable', 'all-in-one-invite-codes-buddypress');
 
                                     if (isset($pages) && is_array($pages)) {
                                         echo '<select name="all_in_one_invite_codes_buddypress[profile_tab]" id="all_in_one_invite_codes_buddypress">';
@@ -250,12 +262,12 @@ function all_in_one_invite_codes_buddypress_settings_page_tab($tab)
                             </tr>
                             <tr valign="top">
                                 <th scope="row" valign="top">
-                                    <?php _e('BuddyPress Registration', 'all-in-one-invite-codes'); ?>
+                                    <?php _e('BuddyPress Registration', 'all-in-one-invite-codes-buddypress'); ?>
                                 </th>
                                 <td>
                                     <?php
-                                    $pages['enabled'] = __('Enable', 'all_in_one_invite_codes-buddypress');
-                                    $pages['disable'] = __('Disable', 'all_in_one_invite_codes-buddypress');
+                                    $pages['enabled'] = __('Enable', 'all-in-one-invite-codes-buddypress');
+                                    $pages['disable'] = __('Disable', 'all-in-one-invite-codes-buddypress');
 
                                     if (isset($pages) && is_array($pages)) {
                                         echo '<select name="all_in_one_invite_codes_buddypress[profile_tab]" id="all_in_one_invite_codes_buddypress">';
@@ -270,12 +282,12 @@ function all_in_one_invite_codes_buddypress_settings_page_tab($tab)
                             </tr>
                             <tr valign="top">
                                 <th scope="row" valign="top">
-                                    <?php _e('Auto Follow', 'all-in-one-invite-codes'); ?>
+                                    <?php _e('Auto Follow', 'all-in-one-invite-codes-buddypress'); ?>
                                 </th>
                                 <td>
                                     <?php
-                                    $pages['enabled'] = __('Enable', 'all_in_one_invite_codes-buddypress');
-                                    $pages['disable'] = __('Disable', 'all_in_one_invite_codes-buddypress');
+                                    $pages['enabled'] = __('Enable', 'all-in-one-invite-codes-buddypress');
+                                    $pages['disable'] = __('Disable', 'all-in-one-invite-codes-buddypress');
 
                                     if (isset($pages) && is_array($pages)) {
                                         echo '<select name="all_in_one_invite_codes_buddypress[autofollow]" id="all_in_one_invite_codes_buddypress_autofollow">';
@@ -288,17 +300,17 @@ function all_in_one_invite_codes_buddypress_settings_page_tab($tab)
                                     ?>
                                 </td>
                                 <td>
-                                    <?php _e('Automatically follow the activity of the inviter profile', 'all-in-one-invite-codes'); ?>
+                                    <?php _e('Automatically follow the activity of the inviter profile', 'all-in-one-invite-codes-buddypress'); ?>
                                 </td>
                             </tr>
                             <tr valign="top">
                                 <th scope="row" valign="top">
-                                    <?php _e('Auto Connect', 'all-in-one-invite-codes'); ?>
+                                    <?php _e('Auto Connect', 'all-in-one-invite-codes-buddypress'); ?>
                                 </th>
                                 <td>
                                     <?php
-                                    $pages['enabled'] = __('Enable', 'all_in_one_invite_codes-buddypress');
-                                    $pages['disable'] = __('Disable', 'all_in_one_invite_codes-buddypress');
+                                    $pages['enabled'] = __('Enable', 'all-in-one-invite-codes-buddypress');
+                                    $pages['disable'] = __('Disable', 'all-in-one-invite-codes-buddypress');
 
                                     if (isset($pages) && is_array($pages)) {
                                         echo '<select name="all_in_one_invite_codes_buddypress[autoconnect]" id="all_in_one_invite_codes_buddypress_autoconnect">';
@@ -311,18 +323,18 @@ function all_in_one_invite_codes_buddypress_settings_page_tab($tab)
                                     ?>
                                 </td>
                                 <td>
-                                    <?php _e('Automatically send a friend request to the inviter profile', 'all-in-one-invite-codes'); ?>
+                                    <?php _e('Automatically send a friend request to the inviter profile', 'all-in-one-invite-codes-buddypress'); ?>
                                 </td>
                             </tr>
 
                             <tr valign="top">
                                 <th scope="row" valign="top">
-                                    <?php _e('Restrict create invite codes', 'all-in-one-invite-codes'); ?>
+                                    <?php _e('Restrict create invite codes', 'all-in-one-invite-codes-buddypress'); ?>
                                 </th>
                                 <td>
                                     <?php
-                                    $pages['enabled'] = __('Enable', 'all-in-one-invite-codes');
-                                    $pages['disable'] = __('Disable', 'all-in-one-invite-codes');
+                                    $pages['enabled'] = __('Enable', 'all-in-one-invite-codes-buddypress');
+                                    $pages['disable'] = __('Disable', 'all-in-one-invite-codes-buddypress');
 
 
 
@@ -337,7 +349,7 @@ function all_in_one_invite_codes_buddypress_settings_page_tab($tab)
                                     ?>
                                 </td>
                                 <td>
-                                    <?php _e('Restrict the invite codes creation to the backend area, users can\'t create invites codes on the frontend', 'all-in-one-invite-codes'); ?>
+                                    <?php _e('Restrict the invite codes creation to the backend area, users can\'t create invites codes on the frontend', 'all-in-one-invite-codes-buddypress'); ?>
 
                                 </td>
                             </tr>
@@ -364,7 +376,7 @@ function all_in_one_invite_codes_bp_after_profile_field_content()
 
 ?>
     <p>
-        <label for="tk_invite_code"><?php _e('Invitation Code', 'all_in_one_invite_codes-buddypress') ?></label>
+        <label for="tk_invite_code"><?php _e('Invitation Code', 'all-in-one-invite-codes-buddypress') ?></label>
         <?php echo do_action('bp_tk_invite_code_errors') ?>
         <input type="text" name="tk_invite_code" id="tk_invite_code" class="input" required="required" value="<?php echo esc_attr($tk_invite_code); ?>" size="25" />
     </p>
@@ -379,7 +391,7 @@ function test_bp_signup_validate()
 
     // Check if the field has a code
     if (empty($_POST['tk_invite_code']) || !empty($_POST['tk_invite_code']) && trim($_POST['tk_invite_code']) == '') {
-        $bp->signup->errors['tk_invite_code'] = __('Please enter a Invite Code.', 'all_in_one_invite_codes-buddypress');
+        $bp->signup->errors['tk_invite_code'] = __('Please enter a Invite Code.', 'all-in-one-invite-codes-buddypress');
     } else {
 
         $tk_invite_code = sanitize_key(trim($_POST['tk_invite_code']));
@@ -387,7 +399,7 @@ function test_bp_signup_validate()
         // Validate teh code
         $result = all_in_one_invite_codes_validate_code($tk_invite_code, $_POST['signup_email']);
         if (isset($result['error'])) {
-            $bp->signup->errors['tk_invite_code'] = sprintf('<strong>%s</strong>: %s', __('ERROR', 'all_in_one_invite_codes-buddypress'), $result['error']);
+            $bp->signup->errors['tk_invite_code'] = sprintf('<strong>%s</strong>: %s', __('ERROR', 'all-in-one-invite-codes-buddypress'), $result['error']);
         }
     }
 }

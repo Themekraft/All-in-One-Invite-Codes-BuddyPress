@@ -89,15 +89,15 @@ $all_in_one_invite_codes_mail_templates = get_option( 'all_in_one_invite_codes_m
 
         <div id="tk_all_in_one_invite_code_send_invite_form">
 
-            <p>Subject: <input type="text" id="tk_all_in_one_invite_code_send_invite_subject" name="aioic_bp_subject"
+            <p><?php _e('Subject:', 'all-in-one-invite-codes-buddypress'); ?> <input type="text" id="tk_all_in_one_invite_code_send_invite_subject" name="aioic_bp_subject"
                                value="<?php echo empty( $all_in_one_invite_codes_mail_templates['subject'] ) ? '' : $all_in_one_invite_codes_mail_templates['subject']; ?>">
             </p>
-            <p>Message Text:<textarea cols="70" rows="5"
+            <p><?php _e('Message Text:', 'all-in-one-invite-codes-buddypress'); ?> <textarea cols="70" rows="5"
                                       id="tk_all_in_one_invite_code_send_invite_message_text"
                                       name="aioic_bp_body">
                     <?php echo empty( $all_in_one_invite_codes_mail_templates['message_text'] ) ? '' : $all_in_one_invite_codes_mail_templates['message_text']; ?></textarea>
             </p>
-            <input type="submit" name="aioic-invite-submit" id="submit" value="Send Invites" class="aioic_submit">
+            <input type="submit" name="aioic-invite-submit" id="submit"  value="<?php _e('Send Invites', 'all-in-one-invite-codes-buddypress'); ?>" class="aioic_submit"> 
         </div>
 
 
