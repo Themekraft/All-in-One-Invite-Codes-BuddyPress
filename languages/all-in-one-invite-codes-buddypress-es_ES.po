@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: All in One Invite Codes BuddyPress\n"
 "POT-Creation-Date: 2020-04-07 20:54-0300\n"
-"PO-Revision-Date: 2021-06-25 20:22+0000\n"
+"PO-Revision-Date: 2021-06-28 20:19+0000\n"
 "Last-Translator: Jonh Wick\n"
 "Language-Team: Español\n"
 "Language: es_ES\n"
@@ -37,7 +37,7 @@ msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "All in One Invite Codes BuddyPress"
-msgstr "Todos en uno Códigos de invitación BuddyPress"
+msgstr "All in One Invite Codes BuddyPress"
 
 #: all-in-one-invite-codes-buddypress.php:296
 msgid "Auto Connect"
