@@ -375,11 +375,11 @@ function all_in_one_invite_codes_bp_after_profile_field_content()
     $tk_invite_code = (!empty($_GET['invite_code'])) ? sanitize_key(trim($_GET['invite_code'])) : '';
 
 ?>
-    <p>
+    <div class="editfield required-field">
         <label for="tk_invite_code"><?php _e('Invitation Code', 'all-in-one-invite-codes-buddypress') ?></label>
         <?php echo do_action('bp_tk_invite_code_errors') ?>
         <input type="text" name="tk_invite_code" id="tk_invite_code" class="input" required="required" value="<?php echo esc_attr($tk_invite_code); ?>" size="25" />
-    </p>
+    </div>
 <?php
 
 }
