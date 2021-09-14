@@ -22,25 +22,30 @@ defined( 'ABSPATH' ) || exit;
                  'posts_per_page' => - 1,
                  'post_type'      => 'tk_invite_codes', //you can use also 'any'
              );
-             $active_codes = array();
-             $pending_codes = array();
-             $used_codes = array();
+             $active_codes = array();          
+             $used_codes   = array();
              $the_query = new WP_Query( $args );
              if ( $the_query->have_posts() ) {
                  while ( $the_query->have_posts() ) : $the_query->the_post();
                      $all_in_one_invite_codes_options = get_post_meta( get_the_ID(), 'all_in_one_invite_codes_options', true );
-                     $email                           = empty( $all_in_one_invite_codes_options['email'] ) ? '' : $all_in_one_invite_codes_options['email'];
-                     $status = all_in_one_invite_codes_get_status( get_the_ID() );
-                     $code = get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true );
-                     if ( empty( $email ) && $status == 'Active' ) {
-                         $active_codes[] ='<li>'.__("Code: ","tk_all_in_one_invite_code"). $code.'</li>';
-                     }elseif ( !empty( $email ) && $status == 'Active'){
+                     $code_amount                     = isset( $all_in_one_invite_codes_options['generate_codes'] ) ? intval($all_in_one_invite_codes_options['generate_codes']) : 1;
+			         $is_multiple_use				  = isset( $all_in_one_invite_codes_options['multiple_use'] ) ? true : false;
+                     $code_total                      = isset( $all_in_one_invite_codes_options['code_total'] ) ? intval($all_in_one_invite_codes_options['code_total']) : $code_amount;
 
-                         $pending_codes[] ='<li>'.__("Code: ","tk_all_in_one_invite_code"). $code. '<p> <b>'.__( 'Invite was sent to: ', 'all_in_one_invite_codes' ) . $email.'</b></p></li>' ;
+                     if($is_multiple_use){
+                        $code = get_post_meta( get_the_ID(), 'tk_all_in_one_invite_code', true );
+                        if($code_amount <= 0){
+                            update_post_meta( get_the_ID(), 'tk_all_in_one_invite_code_status', 'Used' );
+                            $code_amount = 0;
+
+                        }
+                        $current_amount = $code_total-$code_amount;
+                        $active_codes[] = sprintf('<li> %s(%d/%d) </li>',$code,$code_amount,$code_total);
+                        $used_codes[]   = sprintf(' <li> %s(%d/%d) </li>',$code,$current_amount,$code_total);
                      }
-                     elseif (!empty( $email ) && $status == 'Used'){
-                         $used_codes[] ='<li>'.__("Code: ","tk_all_in_one_invite_code"). $code. '<p><b>'.__( 'Invite was sent to: ', 'all_in_one_invite_codes' ) . $email.'</b></p></li>' ;
-                     }
+                    
+                    
+                     
 
                  endwhile;
              }
@@ -49,13 +54,12 @@ defined( 'ABSPATH' ) || exit;
                  Echo $args['before_title'] . $cuser->display_name.' : '.$title . $args['after_title'];
           echo '<div id="tabs">
               <ul>
-                <li><a href="#tabs-1">'.__("Active","all_in_one_invite_codes").'</a></li>
-                <li><a href="#tabs-2">'.__("Pending","all_in_one_invite_codes").'</a></li>
-                <li><a href="#tabs-3">'.__("Used","all_in_one_invite_codes").'</a></li>
+                <li style="width:45%;"><a href="#tabs-1">'.__("Active","all_in_one_invite_codes").'</a></li>
+              
+                <li style="width:45%;"><a href="#tabs-2">'.__("Used","all_in_one_invite_codes").'</a></li>
               </ul>
-              <div id="tabs-1">'.implode("",$active_codes).'</div>
-              <div id="tabs-2">'.implode("",$pending_codes) .'</div>
-              <div id="tabs-3">'.implode("",$used_codes).' </div>
+              <div id="tabs-1"><ul>'.implode("",$active_codes).'</ul></div>
+              <div id="tabs-2"><ul>'.implode("",$used_codes) .'</ul></div>
             </div>';
                 echo ' <script>
              jQuery( function() {

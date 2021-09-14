@@ -119,7 +119,13 @@ function all_in_one_invite_codes_profile_tab()
     ));
 }
 
-add_action('bp_setup_nav', 'all_in_one_invite_codes_profile_tab');
+$all_in_one_invite_codes_buddypress_options = get_option('all_in_one_invite_codes_buddypress');
+$invite_friends_restricted =  isset($all_in_one_invite_codes_buddypress_options['restrict_invite_friends']) ? $all_in_one_invite_codes_buddypress_options['restrict_invite_friends'] === 'enabled' ? true : false : false;
+if($invite_friends_restricted ==false){
+    add_action('bp_setup_nav', 'all_in_one_invite_codes_profile_tab');
+}
+
+
 
 function all_in_one_invite_codes_profile_tab_aioic_sent_invites_screen()
 {
@@ -350,6 +356,33 @@ function all_in_one_invite_codes_buddypress_settings_page_tab($tab)
                                 </td>
                                 <td>
                                     <?php _e('Restrict the invite codes creation to the backend area, users can\'t create invites codes on the frontend', 'all-in-one-invite-codes-buddypress'); ?>
+
+                                </td>
+                            </tr>
+
+                            <tr valign="top">
+                                <th scope="row" valign="top">
+                                    <?php _e('Restrict invite friends', 'all-in-one-invite-codes-buddypress'); ?>
+                                </th>
+                                <td>
+                                    <?php
+                                    $pages['enabled'] = __('Enable', 'all-in-one-invite-codes-buddypress');
+                                    $pages['disable'] = __('Disable', 'all-in-one-invite-codes-buddypress');
+
+
+
+                                    if (isset($pages) && is_array($pages)) {
+                                        echo '<select  name="all_in_one_invite_codes_buddypress[restrict_invite_friends]" id="all_in_one_invite_codes_buddypress_resctric_invite_friends">';
+
+                                        foreach ($pages as $page_id => $page_name) {
+                                            echo '<option ' . selected($all_in_one_invite_codes_buddypress['restrict_invite_friends'], $page_id) . 'value="' . $page_id . '">' . $page_name . '</option>';
+                                        }
+                                        echo '</select>';
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php _e('Restrict the invite friends option to the backend area, users can\'t send invites to friends on the frontend', 'all-in-one-invite-codes-buddypress'); ?>
 
                                 </td>
                             </tr>
