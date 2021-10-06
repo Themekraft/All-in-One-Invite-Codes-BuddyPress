@@ -41,7 +41,10 @@ defined( 'ABSPATH' ) || exit;
                         }
                         $current_amount = $code_total-$code_amount;
                         $active_codes[] = sprintf('<li> %s(%d/%d) </li>',$code,$code_amount,$code_total);
-                        $used_codes[]   = sprintf(' <li> %s(%d/%d) </li>',$code,$current_amount,$code_total);
+                        if($current_amount > 0){
+                            $used_codes[]   = sprintf(' <li> %s(%d/%d) </li>',$code,$current_amount,$code_total);
+                        }
+                        
                      }
                     
                     
