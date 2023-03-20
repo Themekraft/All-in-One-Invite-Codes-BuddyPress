@@ -256,7 +256,7 @@ function all_in_one_invite_codes_buddypress_settings_page_tab($tab)
                                     $pages['disable'] = __('Disable', 'all-in-one-invite-codes-buddypress');
 
                                     if (isset($pages) && is_array($pages)) {
-                                        echo '<select name="all_in_one_invite_codes_buddypress[profile_tab]" id="all_in_one_invite_codes_buddypress">';
+                                        echo '<select name="all_in_one_invite_codes_buddypress[profile_tab]" id="all_in_one_invite_codes_buddypress_profile_tab">';
 
                                         foreach ($pages as $page_id => $page_name) {
                                             echo '<option ' . selected($all_in_one_invite_codes_buddypress['profile_tab'], $page_id) . 'value="' . $page_id . '">' . $page_name . '</option>';
@@ -276,10 +276,10 @@ function all_in_one_invite_codes_buddypress_settings_page_tab($tab)
                                     $pages['disable'] = __('Disable', 'all-in-one-invite-codes-buddypress');
 
                                     if (isset($pages) && is_array($pages)) {
-                                        echo '<select name="all_in_one_invite_codes_buddypress[profile_tab]" id="all_in_one_invite_codes_buddypress">';
+                                        echo '<select name="all_in_one_invite_codes_buddypress[registration]" id="all_in_one_invite_codes_buddypress_registration">';
 
                                         foreach ($pages as $page_id => $page_name) {
-                                            echo '<option ' . selected($all_in_one_invite_codes_buddypress['profile_tab'], $page_id) . 'value="' . $page_id . '">' . $page_name . '</option>';
+                                            echo '<option ' . selected($all_in_one_invite_codes_buddypress['registration'], $page_id) . 'value="' . $page_id . '">' . $page_name . '</option>';
                                         }
                                         echo '</select>';
                                     }
